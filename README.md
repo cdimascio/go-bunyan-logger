@@ -1,19 +1,33 @@
 
 ##go-bunyan-logger
-**go-bunyan-logger** is a simple and fast JSON structured-logging library for Go. It is inspired by [bunyan](https://github.com/trentm/node-bunyan).
+**go-bunyan-logger** is a simple and fast JSON structured-logging library for Go. It is inspired by [bunyan](https://github.com/trentm/node-bunyan) and compatible with bunyan's CLI.
 
 ```go
 	log := logger.NewLogger("myapp")
 	log.Info("An information message")
 ```
 
-**go-bunyan-logger** seconds the bunyan manifesto: erver logs should be structured. JSON's a good format. Let's do that. A log record is one line of JSON.stringify'd output. Let's also specify some common names for the requisite and common fields for a log record (see below).
+**go-bunyan-logger** is a proponent of the [bunyan](https://github.com/trentm/node-bunyan) manifesto: "Server logs should be structured. JSON's a good format. Let's do that. A log record is one line of JSON.stringify'd output. Let's also specify some common names for the requisite and common fields for a log record (see below)."
 
 ### Compatible with [bunyan's CLI](https://github.com/trentm/node-bunyan)
 
+Output (short) with bunyan cli `myapp | bunyan -o 'short'`:
+
 ![](https://github.com/cdimascio/go-bunyan-logger/raw/master/withbunyan.png)
 
-Sample code:
+Output raw:
+
+```json
+{"hostname":"Carmines-MacBook-Pro-7.local","key":"value","key2":10,"level":30,"msg":"Woop!","name":"my-app","pid":50230,"time":"2016-12-31T21:16:14.242Z","v":0}
+{"hostname":"Carmines-MacBook-Pro-7.local","level":50,"msg":"Error: 500 (Internal Server Error)","name":"my-app","pid":50230,"time":"2016-12-31T21:16:14.242Z","v":0}
+{"hostname":"Carmines-MacBook-Pro-7.local","level":60,"msg":"Fatal message","name":"my-app","pid":50230,"time":"2016-12-31T21:16:14.242Z","v":0}
+{"hostname":"Carmines-MacBook-Pro-7.local","level":40,"msg":"Warning message","name":"my-app","pid":50230,"time":"2016-12-31T21:16:14.242Z","v":0}
+{"hostname":"Carmines-MacBook-Pro-7.local","level":20,"msg":"Debug message","name":"my-app","pid":50230,"time":"2016-12-31T21:16:14.242Z","v":0}
+{"hostname":"Carmines-MacBook-Pro-7.local","level":10,"msg":"Trace message","name":"my-app","pid":50230,"time":"2016-12-31T21:16:14.242Z","v":0}
+```
+
+
+Code to generate the output above:
 
 ```go
 package main
@@ -36,7 +50,6 @@ func main() {
 	l.Trace("Trace message")
 }
 ```
-
 
 
 ## Installation
