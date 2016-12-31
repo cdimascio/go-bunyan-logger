@@ -15,7 +15,7 @@ type Logger struct {
 	mutex      sync.Mutex
 }
 
-func NewStdLogger(name string) *Logger {
+func NewLogger(name string) *Logger {
 	return &Logger{
 		out: os.Stdout,
 		name: name,

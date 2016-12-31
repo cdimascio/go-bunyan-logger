@@ -3,7 +3,7 @@
 **go-bunyan-logger** is a simple and fast JSON structured-logging library for Go. It is inspired by [bunyan](https://github.com/trentm/node-bunyan).
 
 ```
-	log := logger.NewStdLogger("myapp")
+	log := logger.NewLogger("myapp")
 	log.Info("An information message")
 ```
 
@@ -20,7 +20,7 @@ package main
 
 import "github.com/cdimascio/go-bunyan-logger"
 
-var l = logger.NewStdLogger("my-app").SetLevel(logger.LevelTrace)
+var l = logger.NewLogger("my-app").SetLevel(logger.LevelTrace)
 
 func main() {
 	l.WithFields(logger.Fields{
@@ -55,7 +55,7 @@ import (
 
 func main() {
 	// Create a logger instance. Note: you can create many instances
-	log := logger.NewStdLogger("myapp")
+	log := logger.NewLogger("myapp")
 
 	// Log messages
 	log.Info("An information message")
@@ -88,7 +88,7 @@ Output:
 
 ```go
    // apply global field to all log entries for this logger instance
-  	log := logger.NewStdLogger().WithGlobalFields(Fields{
+  	log := logger.NewLogger().WithGlobalFields(Fields{
 		"globalFieldOne": "value 1",
 		"globalFieldTwo": 2.0,
 	})
