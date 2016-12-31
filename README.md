@@ -1,16 +1,16 @@
 
-##go-logger
-**go-logger** is a simple and fast JSON structured-logging library for Go. It is inspired by [bunyan](https://github.com/trentm/node-bunyan).
+##go-bunyan-logger
+**go-bunyan-logger** is a simple and fast JSON structured-logging library for Go. It is inspired by [bunyan](https://github.com/trentm/node-bunyan).
 
 ```
 	log := logger.NewStdLogger("myapp")
 	log.Info("An information message")
 ```
 
-**go-logger** seconds the bunyan manifesto: erver logs should be structured. JSON's a good format. Let's do that. A log record is one line of JSON.stringify'd output. Let's also specify some common names for the requisite and common fields for a log record (see below).
+**go-bunyan-logger** seconds the bunyan manifesto: erver logs should be structured. JSON's a good format. Let's do that. A log record is one line of JSON.stringify'd output. Let's also specify some common names for the requisite and common fields for a log record (see below).
 
 ## Installation
-`go get github.com/cdimascio/go-logger`
+`go get github.com/cdimascio/go-bunyan-logger`
 
 ## Usage
 
@@ -20,7 +20,7 @@ Quick start example:
 package main
 
 import (
-  "github.com/cdimascio/go-logger"
+  "github.com/cdimascio/go-bunyan-logger"
 )
 
 func main() {
@@ -31,7 +31,7 @@ func main() {
 	log.Info("An information message")
 
 	// Log messages in Printf style
-	log.Infof("An information message from %s", "go-logger!")
+	log.Infof("An information message from %s", "go-bunyan-logger!")
 
 	// Log messages with custom fields
 	log.WithFields(logger.Fields{
@@ -46,7 +46,7 @@ Output:
 ```
 {"hostname":"Carmines-MacBook-Pro-7.local","level":30,"msg":"An information message","name":"myapp","pid":38851,"time":"2016-12-31T11:34:52-05:00","v":0}
 
-{"hostname":"Carmines-MacBook-Pro-7.local","level":30,"msg":"An information message from [go-logger!]","name":"myapp","pid":38851,"time":"2016-12-31T11:34:52-05:00","v":0}
+{"hostname":"Carmines-MacBook-Pro-7.local","level":30,"msg":"An information message from [go-bunyan-logger!]","name":"myapp","pid":38851,"time":"2016-12-31T11:34:52-05:00","v":0}
 
 {"fieldOne":"value 1","hostname":"Carmines-MacBook-Pro-7.local","level":30,"msg":"An information message with fields","name":"myapp","pid":38851,"time":"2016-12-31T11:34:52-05:00","v":0}
 
@@ -118,7 +118,7 @@ The Logger's level and timeformat are configurable
 
 ##Levels
 
-The log levels in go-logger are as follows. The level descriptions are best practice opinions of the [bunyan](https://github.com/trentm/node-bunyan) author.
+The log levels in go-bunyan-logger are as follows. The level descriptions are best practice opinions of the [bunyan](https://github.com/trentm/node-bunyan) author.
 
 - "fatal" (60): The service/app is going to stop or become unusable now. An operator should definitely look into this soon.
 - "error" (50): Fatal for a particular request, but the service/app continues servicing other requests. An operator should look at this soon(ish).
@@ -138,7 +138,7 @@ Core fields are provided in each and every log entry.
 
 | field    | required | type   | can be overriden | description                                                                                             | default value |
 |----------|----------|--------|------------------|---------------------------------------------------------------------------------------------------------|---------------|
-| `v`        | yes      | number    | no               | The go-logger format version. The current value is 0.                                                   | `0`             |
+| `v`        | yes      | number    | no               | The go-bunyan-logger format version. The current value is 0.                                                   | `0`             |
 | `name`     | yes      | string | yes              | The Logger name. Provided at Logger creation. You must specify a name for your logger when creating it. | n/a           |
 | `hostname` | yes      | string | yes              | The hostname. Determined at Logger creation and populated automatically.                                | `os.Hostname()` |
 | `pid`      | yes      | number    | no               | The process id. Populated automatically.                                                                | `os.Getpid()`   |

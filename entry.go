@@ -8,7 +8,7 @@ import (
 )
 
 
-type Entry struct {
+type entry struct {
 	logger *Logger
 	Fields Fields
 }
@@ -31,8 +31,8 @@ func init() {
 }
 
 
-func newEntry(logger *Logger) *Entry {
-	return &Entry{
+func newEntry(logger *Logger) *entry {
+	return &entry{
 		logger: logger,
 		Fields: Fields{
 			"name": logger.Name,
@@ -44,7 +44,7 @@ func newEntry(logger *Logger) *Entry {
 	}
 }
 
-func (e *Entry) WithFields(fields Fields) *Entry {
+func (e *entry) WithFields(fields Fields) *entry {
 	allFields := make(Fields)
 	addFields(&allFields, e.logger.Fields)
 	addFields(&allFields, e.Fields)
@@ -64,63 +64,63 @@ func addFields(result *Fields, fields Fields) {
 	}
 }
 
-func (e *Entry) WithField(key string, value interface{}) *Entry {
+func (e *entry) WithField(key string, value interface{}) *entry {
 	return e.WithFields(Fields{key: value})
 }
 
-func (e *Entry) WithError(err error) *Entry {
+func (e *entry) WithError(err error) *entry {
 	return e.WithField("error", err.Error())
 }
 
-func (e *Entry) Fatalf(format string, args ...interface{}) {
+func (e *entry) Fatalf(format string, args ...interface{}) {
 	e.log(LevelFatal, fmt.Sprintf(format, args...))
 }
 
-func (e *Entry) Errorf(format string, args ...interface{}) {
+func (e *entry) Errorf(format string, args ...interface{}) {
 	e.log(LevelError, fmt.Sprintf(format, args...))
 }
 
-func (e *Entry) Warnf(format string, args ...interface{}) {
+func (e *entry) Warnf(format string, args ...interface{}) {
 	e.log(LevelWarn, fmt.Sprintf(format, args...))
 }
 
-func (e *Entry) Infof(format string, args ...interface{}) {
+func (e *entry) Infof(format string, args ...interface{}) {
 	e.log(LevelInfo, fmt.Sprintf(format, args...))
 }
 
-func (e *Entry) Debugf(format string, args ...interface{}) {
+func (e *entry) Debugf(format string, args ...interface{}) {
 	e.log(LevelDebug, fmt.Sprintf(format, args...))
 }
 
-func (e *Entry) Tracef(format string, args ...interface{}) {
+func (e *entry) Tracef(format string, args ...interface{}) {
 	e.log(LevelTrace, fmt.Sprintf(format, args...))
 }
 
-func (e *Entry) Fatal(msg string) {
+func (e *entry) Fatal(msg string) {
 	e.log(LevelFatal, msg)
 }
 
-func (e *Entry) Error(msg string) {
+func (e *entry) Error(msg string) {
 	e.log(LevelError, msg)
 }
 
-func (e *Entry) Warn(msg string) {
+func (e *entry) Warn(msg string) {
 	e.log(LevelWarn, msg)
 }
 
-func (e *Entry) Info(msg string) {
+func (e *entry) Info(msg string) {
 	e.log(LevelInfo, msg)
 }
 
-func (e *Entry) Debug(msg string) {
+func (e *entry) Debug(msg string) {
 	e.log(LevelDebug, msg)
 }
 
-func (e *Entry) Trace(msg string) {
+func (e *entry) Trace(msg string) {
 	e.log(LevelTrace, msg)
 }
 
-func (e *Entry) log(level Level, msg string) {
+func (e *entry) log(level Level, msg string) {
 	if level >= e.logger.Level  {
 		entryMap := map[string]interface{}{
 			"level":    level,

@@ -1,9 +1,9 @@
 package logger
 
 type Interface interface {
-	WithFields(fields Fields) *Entry
-	WithField(key string, value interface{}) *Entry
-	WithError(err error) *Entry
+	WithFields(fields Fields) *entry
+	WithField(key string, value interface{}) *entry
+	WithError(err error) *entry
 	Fatalf(format string, args ...interface{})
 	Errorf(format string, args ...interface{})
 	Warnf(format string, args ...interface{})

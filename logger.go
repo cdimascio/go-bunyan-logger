@@ -36,19 +36,19 @@ func (l *Logger) WithGlobalFields(fields Fields) *Logger {
 	return l
 }
 
-func (l *Logger) setTimeFormat(layout string) string {
-	return layout
+func (l *Logger) SetTimeFormat(layout string) *Logger {
+	return l
 }
 
-func (l *Logger) WithFields(fields Fields) *Entry {
+func (l *Logger) WithFields(fields Fields) *entry {
 	return newEntry(l).WithFields(fields)
 }
 
-func (l *Logger) WithField(key string, value interface{}) *Entry {
+func (l *Logger) WithField(key string, value interface{}) *entry {
 	return newEntry(l).WithField(key, value)
 }
 
-func (l *Logger) WithError(err error) *Entry {
+func (l *Logger) WithError(err error) *entry {
 	return newEntry(l).WithError(err)
 }
 
