@@ -13,11 +13,11 @@
 
 Output with bunyan cli `myapp | bunyan`:
 
-![](https://github.com/cdimascio/go-bunyan-logger/assets/raw/master/ex-bunyan-cli.png)
+![](https://github.com/cdimascio/go-bunyan-logger/raw/master/assets/ex-bunyan-cli.png)
 
 Output (short) with bunyan cli `myapp | bunyan -o 'short'`:
 
-![](https://github.com/cdimascio/go-bunyan-logger/assets/raw/master/ex-bunyan-cli-short.png)
+![](https://github.com/cdimascio/go-bunyan-logger/raw/master/assets/ex-bunyan-cli-short.png)
 
 Output raw:
 
