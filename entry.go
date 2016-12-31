@@ -35,10 +35,10 @@ func newEntry(logger *Logger) *entry {
 	return &entry{
 		logger: logger,
 		Fields: Fields{
-			"name": logger.Name,
+			"name": logger.name,
 			"hostname": hostname,
 			"pid": os.Getpid(),
-			"time": time.Now().Format(logger.TimeFormat),
+			"time": time.Now().UTC().Format(logger.timeFormat),
 			"v": Version,
 		},
 	}
@@ -46,8 +46,8 @@ func newEntry(logger *Logger) *entry {
 
 func (e *entry) WithFields(fields Fields) *entry {
 	allFields := make(Fields)
-	addFields(&allFields, e.logger.Fields)
-	addFields(&allFields, e.Fields)
+	allFields = e.Fields
+	addFields(&allFields, e.logger.fields)
 	addFields(&allFields, fields)
 	e.Fields = allFields
 	return e
@@ -121,7 +121,7 @@ func (e *entry) Trace(msg string) {
 }
 
 func (e *entry) log(level Level, msg string) {
-	if level >= e.logger.Level  {
+	if level >= e.logger.level {
 		entryMap := map[string]interface{}{
 			"level":    level,
 			"msg":      msg,
@@ -131,7 +131,7 @@ func (e *entry) log(level Level, msg string) {
 			entryMap[key] = value
 		}
 
-		enc := json.NewEncoder(e.logger.Out)
+		enc := json.NewEncoder(e.logger.out)
 
 		e.logger.mutex.Lock()
 		defer e.logger.mutex.Unlock()

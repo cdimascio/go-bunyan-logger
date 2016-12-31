@@ -4,39 +4,39 @@ import (
 	"io"
 	"os"
 	"sync"
-	"time"
 )
 
 type Logger struct {
-	Out io.Writer
-	Name string
-	Level Level
-	Fields Fields
-	TimeFormat string
-	mutex sync.Mutex
+	out        io.Writer
+	name       string
+	level      Level
+	fields     Fields
+	timeFormat string
+	mutex      sync.Mutex
 }
 
 func NewStdLogger(name string) *Logger {
 	return &Logger{
-		Out: os.Stderr,
-		Name: name,
-		Level: LevelInfo,
-		TimeFormat: time.RFC3339,
-		Fields: nil,
+		out: os.Stdout,
+		name: name,
+		level: LevelInfo,
+		timeFormat: "2006-01-02T15:04:05.000Z",
+		fields: nil,
 	}
 }
 
 func (l *Logger) SetLevel(level Level) *Logger {
-	l.Level = level
+	l.level = level
 	return l
 }
 
 func (l *Logger) WithGlobalFields(fields Fields) *Logger {
-	l.Fields = fields
+	l.fields = fields
 	return l
 }
 
 func (l *Logger) SetTimeFormat(layout string) *Logger {
+	l.timeFormat = layout
 	return l
 }
 
