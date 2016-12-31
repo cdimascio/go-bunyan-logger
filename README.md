@@ -2,7 +2,7 @@
 ##go-bunyan-logger
 **go-bunyan-logger** is a simple and fast JSON structured-logging library for Go. It is inspired by [bunyan](https://github.com/trentm/node-bunyan).
 
-```
+```go
 	log := logger.NewLogger("myapp")
 	log.Info("An information message")
 ```
