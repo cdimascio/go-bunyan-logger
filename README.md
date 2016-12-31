@@ -9,6 +9,36 @@
 
 **go-bunyan-logger** seconds the bunyan manifesto: erver logs should be structured. JSON's a good format. Let's do that. A log record is one line of JSON.stringify'd output. Let's also specify some common names for the requisite and common fields for a log record (see below).
 
+### Compatible with [bunyan's CLI](https://github.com/trentm/node-bunyan)
+
+![](https://github.com/cdimascio/go-bunyan-logger/raw/master/withbunyan.png)
+
+Sample code:
+
+```go
+package main
+
+import "github.com/cdimascio/go-bunyan-logger"
+
+var l = logger.NewStdLogger("my-app").SetLevel(logger.LevelTrace)
+
+func main() {
+	l.WithFields(logger.Fields{
+		"key": "value",
+		"key2": 10,
+	}).Info("Woop!")
+
+
+	l.Errorf("Error: %d (%s)", 500, "Internal Server Error")
+	l.Fatal("Fatal message")
+	l.Warn("Warning message")
+	l.Debug("Debug message")
+	l.Trace("Trace message")
+}
+```
+
+
+
 ## Installation
 `go get github.com/cdimascio/go-bunyan-logger`
 
@@ -16,7 +46,7 @@
 
 Quick start example:
 
-```
+```go
 package main
 
 import (
@@ -43,7 +73,7 @@ func main() {
 
 Output:
 
-```
+```json
 {"hostname":"Carmines-MacBook-Pro-7.local","level":30,"msg":"An information message","name":"myapp","pid":38851,"time":"2016-12-31T11:34:52-05:00","v":0}
 
 {"hostname":"Carmines-MacBook-Pro-7.local","level":30,"msg":"An information message from [go-bunyan-logger!]","name":"myapp","pid":38851,"time":"2016-12-31T11:34:52-05:00","v":0}
@@ -56,7 +86,7 @@ Output:
 **With Global fields**
 
 
-```
+```go
    // apply global field to all log entries for this logger instance
   	log := logger.NewStdLogger().WithGlobalFields(Fields{
 		"globalFieldOne": "value 1",
@@ -74,7 +104,7 @@ Output:
 
 Output:
 
-```
+```json
 {"globalFieldOne":"value 1","globalFieldTwo":2,"hostname":"Carmines-MacBook-Pro-7.local","level":50,"msg":"An error message","name":"example-app","pid":38851,"time":"2016-12-31T11:34:52-05:00","v":0}
 
 {"globalFieldOne":"value 1","globalFieldTwo":2,"hostname":"Carmines-MacBook-Pro-7.local","level":50,"msg":"An error message with status [500]","name":"example-app","pid":38851,"time":"2016-12-31T11:34:52-05:00","v":0}
@@ -87,16 +117,17 @@ Output:
 ##Configure
 The Logger's level and timeformat are configurable
 
-```
+```go
 	// Set the logger level. LevelInfo is the default
 	log.SetLevel(logger.LevelInfo)
 
+	// defaults to Bunyan time
 	log.SetTimeFormat(time.RFC3339)
 
 ```
 
 ##Methods
-```
+```go
 	Fatal(msg string)
 	Error(msg string)
 	Warn(msg string)
